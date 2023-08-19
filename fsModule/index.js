@@ -17,7 +17,6 @@ const server = http.createServer(function (req, res) {
     }
 });
 
-
 const server1 = http.createServer(function (req, res) {
     if (req.url = '/') {
 
@@ -55,8 +54,6 @@ const server1 = http.createServer(function (req, res) {
 
 });
 
-
-
 const server2 = http.createServer(function (req, res) {
     if (req.url = '/') {
         // async
@@ -73,9 +70,8 @@ const server2 = http.createServer(function (req, res) {
         //     }
         // });
 
-
         // synchronous
-        let error = fs.renameSync('demoSync.txt', 'newDemoSync.txt');
+        let error = fs.renameSync('newDemoSync.txt', 'newDemoSync123.txt');
         if (error) {
             res.writeHead(200, { 'content-type': 'text/html' });
             res.write('file rename fail');
@@ -86,16 +82,45 @@ const server2 = http.createServer(function (req, res) {
             res.write('file rename Successfully');
             res.end();
         }
-
     }
-
-
-
 });
 
+const server3 = http.createServer(function(req,res){
+    if(req.url=='/'){
+        // asynchronous
+        // fs.unlink('demoNew.txt', function(error){
+        //     if (error) {
+        //         res.writeHead(200, { 'content-type': 'text/html' });
+        //         res.write('file Unlink/delete fail');
+        //         res.end();
+        //     }
+        //     else {
+        //         res.writeHead(200, { 'content-type': 'text/html' });
+        //         res.write('file Unlink/delete Successfully');
+        //         res.end();
+        //     }
+        // })
+
+        // synchronous
+        const error = fs.unlinkSync('newDemoSync123.txt');
+        if (error) {
+            res.writeHead(200, { 'content-type': 'text/html' });
+            res.write('file Unlink/delete fail');
+            res.end();
+        }
+        else {
+            res.writeHead(200, { 'content-type': 'text/html' });
+            res.write('file Unlink/delete Successfully');
+            res.end();
+        }
+
+
+    }
+})
 
 
 
 
-server2.listen(4040);
-console.log('Server2 running successfully')
+
+server3.listen(4040);
+console.log('Server3 running successfully')
